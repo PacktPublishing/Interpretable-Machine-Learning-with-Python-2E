@@ -10,7 +10,6 @@ from matplotlib import cm
 from alibi.utils.mapping import ohe_to_ord, ord_to_ohe
 import statsmodels.api as sm
 from mlxtend.plotting import plot_decision_regions
-from pycebox.ice import ice, ice_plot
 from itertools import cycle
 import seaborn as sns
 import io
@@ -446,36 +445,6 @@ def create_decision_plot(X, y, model, feature_index, feature_names, X_highlight,
     ax.set_ylabel(feature_names[1])
     return ax
 
-def plot_data_vs_ice(pred_function, ylabel, X, feature_name, feature_label, color_by=None, legend_key=None, alpha=0.15,\
-                     save_name=None):
-    ice_df = ice(X, feature_name,\
-             pred_function, num_grid_points=None)
-    fig, axs = plt.subplots(2, 1, sharex=False, sharey=True,\
-                            figsize=(15,20))
-    fig.subplots_adjust(hspace=0.15, wspace=0)
-    if color_by is None or legend_key is None:
-        scatter = axs[0].scatter(X[feature_name],\
-                                 pred_function(X),\
-                                 alpha=alpha)
-        ice_plot(ice_df, alpha=alpha, ax=axs[1])
-    else:
-        scatter = axs[0].scatter(X[feature_name],\
-                                 pred_function(X),\
-                                 c=X[color_by], alpha=alpha)
-        legend = axs[0].legend(*scatter.legend_elements(), loc='best')
-        for s in legend_key.keys(): 
-            legend.get_texts()[s].set_text(legend_key[s])
-        ice_plot(ice_df, color_by=color_by, alpha=alpha, ax=axs[1])
-    axs[0].set_xlabel(feature_label, fontsize=12)
-    axs[0].set_ylabel(ylabel, fontsize=12)
-    axs[0].set_title('Data', fontsize=16)
-    axs[1].set_xlabel(feature_label, fontsize=12)
-    axs[1].set_ylabel(ylabel, fontsize=12)
-    axs[1].set_title('ICE Curves', fontsize=16)
-    if save_name is not None:
-        plt.savefig(save_name+'_iceplus.png', dpi=300, bbox_inches="tight")
-    plt.show()
-
 def img_np_from_fig(fig, dpi=144):
     buffer = io.BytesIO()
     fig.savefig(buffer, format="png", dpi=dpi)
@@ -774,7 +743,7 @@ def plot_prob_progression(x, y, x_intervals=7, use_quartiles=False,\
     
 def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quartiles=False, plot_type='contour',\
                           xlabel=None, ylabel=None, title=None, model=None, X_df=None, x_col=None, y_col=None,\
-                          diff_to_mean=False, annotate=False, save_name=None):
+                          cmap=None, diff_to_mean=False, annotate=False, color="w", save_name=None):
     if isinstance(x, list): x = np.array(x)
     if isinstance(y, list): y = np.array(y)
     if isinstance(z, list): z = np.array(z)
@@ -819,8 +788,9 @@ def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quartiles=F
     if diff_to_mean:
         expected_value = xyz_df.z.mean()
         probs_df['z'] = probs_df['z'] - expected_value
-        cmap = plt.cm.RdYlBu
-    else:
+        if cmap is None:
+            cmap = plt.cm.RdYlBu
+    elif cmap is None:
         cmap = plt.cm.viridis
     grid_probs = np.reshape(probs_df.z.to_numpy(), x_grid.shape)
 
@@ -836,7 +806,7 @@ def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quartiles=F
 
     sns.set_style(None)
     sns.set_style({'axes.facecolor':'white', 'grid.color': 'white'})
-    sns.histplot(xyz_df, x='x', stat='probability', bins=np.arange(x_bin_cnt+1)-0.5, color=('dimgray',), ax=ax_top[0])
+    sns.histplot(xyz_df, x='x', stat='probability', bins=np.arange(x_bin_cnt+1)-0.5, color=('dimgray'), ax=ax_top[0])
     ax_top[0].set_xticks([])
     ax_top[0].set_yticks([])
     ax_top[0].set_xlabel('')
@@ -857,13 +827,13 @@ def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quartiles=F
             cmap=cmap
         ) 
     else:
-        mappable = ax_bottom[0].imshow(grid_probs, cmap=plt.cm.viridis,\
-                                      interpolation='nearest', aspect='auto')
+        mappable = ax_bottom[0].imshow(grid_probs, cmap=cmap,\
+                                      interpolation='nearest', aspect='auto') #plt.cm.viridis
         if annotate:
             for i in range(y_bin_cnt):
                 for j in range(x_bin_cnt):
                     text = ax_bottom[0].text(j, i, "{:.1%}".format(grid_probs[i, j]), fontsize=16,
-                                             ha="center", va="center", color="w")
+                                             ha="center", va="center", color=color, weight="bold")
             ax_bottom[0].grid(False)
             
     ax_bottom[0].xaxis.set_major_locator(plticker.MultipleLocator(base=1.0))
@@ -882,7 +852,9 @@ def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quartiles=F
     cbar.ax.set_ylabel('Probability', fontsize=13)
     cbar.ax.tick_params(labelsize=11)
 
-    sns.histplot(xyz_df, y="y", stat='probability', bins=np.arange(y_bin_cnt+1)-0.5, color=('dimgray',), ax=ax_bottom[1])
+    sns.set_style(None)
+    sns.set_style({'axes.facecolor':'white', 'grid.color': 'white'})
+    sns.histplot(xyz_df, y="y", stat='probability', bins=np.arange(y_bin_cnt+1)-0.5, color=('dimgray'), ax=ax_bottom[1])
     ax_bottom[1].set_xticks([])
     ax_bottom[1].set_yticks([])
     ax_bottom[1].set_xlabel('')

@@ -200,6 +200,20 @@
             "prepcmds":["df = df.drop_duplicates()", "df = df.groupby('date_time').agg({'temp':'mean', 'rain_1h':'mean', 'snow_1h':'mean', 'clouds_all':'mean', 'traffic_volume':'mean', 'weather_main':'first', 'holiday':'first'})", "df = df.reindex(pd.date_range(start=df.index.min(), end=df.index.max(), freq='1H'))", "df.interpolate(method='index', inplace=True)", "df.fillna('None', inplace=True)", "df.index.name = 'date_time'", "df.reset_index(inplace=True)", "df['date'] = df.date_time.dt.date", "df = df[['date_time', 'temp', 'rain_1h', 'snow_1h', 'clouds_all', 'weather_main', 'date', 'traffic_volume']].merge(df[['date','holiday']].groupby('date').agg({'holiday': lambda x: max(x, key=len)}).reset_index(), how='left', on='date')", "df['is_holiday'] = np.where(df.holiday=='None', 0, 1)", "df.loc[df.date.astype(str).isin(['2015-01-01', '2013-01-21', '2015-01-19', '2016-01-18', '2015-02-16', '2015-05-25', '2014-07-04', '2014-08-21', '2014-09-01', '2014-10-13', '2014-11-11', '2014-11-27', '2014-12-25']), 'is_holiday'] = 1", "df.loc[:,'temp'] = (df.temp - 273.15)", "df['month'] = df.date_time.dt.month", "df['dow'] = df.date_time.dt.dayofweek", "df['hr'] = df.date_time.dt.hour", "df.loc[df.rain_1h > 50, 'rain_1h'] = 1.055", "df = df[['date_time', 'dow', 'hr', 'temp', 'rain_1h', 'clouds_all', 'weather_main', 'is_holiday', 'traffic_volume']].rename(columns={'weather_main':'weather', 'clouds_all':'cloud_coverage'})", "df.loc[df.weather=='None', 'weather'] = 'Unknown'", "df = make_dummies_with_limits(df, 'weather', min_recs=0.01)", "df = df[df.date_time >= '2015-10-28 00:00:00']", "df.set_index('date_time', inplace=True)"]
         },
         {
+            "name":"traffic-volume-v2",
+            "source":"URL",
+            "location":"https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/raw/main/datasets/traffic-volume-2e.csv.zip",
+            "filenames":"traffic-volume-2e.csv",
+            "filetypes":"csv",
+            "target":"traffic_volume", 
+            "csvopts":{
+                "usecols":["date_time", "dow", "hr", "temp", "rain_1h", "snow_1h", "cloud_coverage",
+       "is_holiday", "weather", "traffic_volume"],
+                "parse_dates":["date_time"]
+            },
+            "prepcmds":["df = make_dummies_with_limits(df, 'weather', min_recs=0.01)", "df = df[df.date_time >= '2012-10-03 00:00:00']", "df.set_index('date_time', inplace=True)"]
+        },
+        {
             "name":"nonprofit-mailer",
             "source":"URL",
             "location":"https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python/raw/master/datasets/mailing-list.zip",
