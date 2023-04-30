@@ -187,6 +187,24 @@
             "target":"__dirname__"
         },
         {
+            "name":"garbage", 
+            "source":"URL", 
+            "location":"https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/datasets/garbage_dataset.zip",
+            "filenames":["train/*/*.jpg", "validation/*/*.jpg", "test/*/*.jpg", "test_400/*/*.jpg"],
+            "filesplits":["train", "val", "test", "test_400"],
+            "filetypes":["img", "img", "img", "img"],
+            "target":"__dirname__"
+        },
+        {
+            "name":"garbage_sample", 
+            "source":"URL", 
+            "location":"https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/datasets/garbage_dataset_sample.zip",
+            "filenames":["train/*/*.jpg", "validation/*/*.jpg", "test/*/*.jpg", "test_400/*/*.jpg"],
+            "filesplits":["train", "val", "test", "test_400"],
+            "filetypes":["img", "img", "img", "img"],
+            "target":"__dirname__"
+        },
+        {
             "name":"traffic-volume",
             "source":"URL",
             "location":"https://archive.ics.uci.edu/ml/machine-learning-databases/00492/Metro_Interstate_Traffic_Volume.csv.gz",

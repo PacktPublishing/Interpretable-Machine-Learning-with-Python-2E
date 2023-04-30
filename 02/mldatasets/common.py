@@ -6,17 +6,22 @@ import math
 from sklearn import preprocessing, metrics
 import matplotlib.pyplot as plt
 import matplotlib.ticker as plticker
+from matplotlib.colors import LinearSegmentedColormap
 from matplotlib import cm
 from alibi.utils.mapping import ohe_to_ord, ord_to_ohe
 import statsmodels.api as sm
 from mlxtend.plotting import plot_decision_regions
 from itertools import cycle
 import seaborn as sns
+import copy
 import io
 import cv2
+import warnings
 from scipy.spatial import distance
 from tqdm.notebook import trange
 from aif360.metrics import ClassificationMetric
+import torchvision
+from scipy import sparse
 
 def runcmd(cmd, verbose=False):
     sproc = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, 
@@ -170,11 +175,15 @@ def evaluate_multiclass_metrics_mdl(fitted_model, y_test_prob, y_test_pred, y_te
             eval_dict['roc-auc'] = metrics.roc_auc_score(y_test, y_test_prob)
     return eval_dict
     
-def evaluate_multiclass_mdl(fitted_model, X, y, class_l, ohe=None, plot_roc=False, plot_roc_class=True,\
+def evaluate_multiclass_mdl(fitted_model, X, y=None, class_l=None, ohe=None, plot_roc=False, plot_roc_class=True,\
                             plot_conf_matrix=True, pct_matrix=True, plot_class_report=True, ret_eval_dict=False,\
                             predopts={}, save_name=None):
-    if not isinstance(X, (np.ndarray)) or not isinstance(y, (list, tuple, np.ndarray)):
+    if isinstance(X, (torchvision.datasets.DatasetFolder)):
+      y = np.array([l for _, l in X])
+    elif not isinstance(X, (list, tuple, np.ndarray, pd.DataFrame)) or not isinstance(y, (list, tuple, np.ndarray, pd.Series)):
         raise Exception("Data is not in the right format")
+    if class_l is None:
+      class_l = list(np.unique(class_l))
     n_classes = len(class_l)
     y = np.array(y)
     if len(y.shape)==1:
@@ -184,12 +193,16 @@ def evaluate_multiclass_mdl(fitted_model, X, y, class_l, ohe=None, plot_roc=Fals
             y_ohe = ohe.transform(y)
         else:
             raise Exception("Sklearn one-hot encoder is a required parameter when labels aren't already encoded")
+        if y.dtype.kind in ['i','u']:
+          y = np.array([[class_l[o]] for o in y.reshape(-1)])
     elif y_ohe.shape[1] == n_classes:
         y_ohe = y.copy()
         y = np.array([[class_l[o]] for o in np.argmax(y_ohe, axis=1)])
     else:
         raise Exception("Labels don't have dimensions that match the classes")
     y_prob = fitted_model.predict(X, **predopts)
+    if isinstance(y_prob, sparse.csc.csc_matrix):
+      y_prob = y_prob.toarray()
     if len(y_prob.shape)==1:
         y_prob = np.expand_dims(y_prob, axis=1)
     if y_prob.shape[1] == 1:
@@ -445,6 +458,152 @@ def create_decision_plot(X, y, model, feature_index, feature_names, X_highlight,
     ax.set_ylabel(feature_names[1])
     return ax
 
+def normalize_scale(heatmap, scale_factor):
+    if scale_factor == 0:
+      warnings.warn("Cannot normalize by scale factor = 0")
+      heatmap_norm = heatmap
+    else:
+      if abs(scale_factor) < 1e-5:
+          warnings.warn(
+              "Attempting to normalize by value approximately 0, visualized results"
+              "may be misleading. This likely means that heatmap values are all"
+              "close to 0."
+          )
+      heatmap_norm = heatmap / scale_factor
+    return np.clip(heatmap_norm, -1, 1)
+
+def cumulative_sum_threshold(values, percentile):
+    # given values should be non-negative
+    assert percentile >= 0 and percentile <= 100, (
+        "Percentile for thresholding must be " "between 0 and 100 inclusive."
+    )
+    sorted_vals = np.sort(values.flatten())
+    cum_sums = np.cumsum(sorted_vals)
+    threshold_id = np.where(cum_sums >= cum_sums[-1] * 0.01 * percentile)[0][0]
+    return sorted_vals[threshold_id]
+
+def minmax_scale_img(img):
+  if img.max() != img.min():
+    img = (img - img.min()) / (img.max() - img.min())
+  return img
+
+def minmax_scale_img_posneg(img):
+  img_pos = np.where(img > 0, img, 0)
+  img_pos = np.where(img > 0, (minmax_scale_img(img_pos) / 2) + 0.5, 0.5)
+  img_neg = np.where(img < 0, img, 0)
+  img_neg = np.where(img < 0, (minmax_scale_img(img_neg) / 2), 0.5)
+  img = np.where(img==0, 0.5, np.where(img > 0, img_pos, img_neg))
+  return img
+
+def normalize_heatmap(heatmap, sign, outlier_perc=2, reduction_axis=None):
+    heatmap_combined = heatmap
+    if reduction_axis is not None:
+        heatmap_combined = np.sum(heatmap, axis=reduction_axis)
+
+    # Choose appropriate signed values and rescale, removing given outlier percentage.
+    default_cmap = "jet"
+    if sign == "all":
+        threshold = cumulative_sum_threshold(np.abs(heatmap_combined), 100 - outlier_perc)
+        default_cmap = LinearSegmentedColormap.from_list(
+            "RdWhGn", ["red", "white", "green"]
+        )
+        vmin, vmax = -1, 1
+    elif sign == "positive":
+        heatmap_combined = (heatmap_combined > 0) * heatmap_combined
+        threshold = cumulative_sum_threshold(heatmap_combined, 100 - outlier_perc)
+        #default_cmap = "Greens"
+        vmin, vmax = 0, 1
+    elif sign == "negative":
+        heatmap_combined = (heatmap_combined < 0) * heatmap_combined
+        threshold = -1 * cumulative_sum_threshold(
+            np.abs(heatmap_combined), 100 - outlier_perc
+        )
+        #default_cmap = "Reds"
+        vmin, vmax = 0, 1
+    elif sign == "absolute_value":
+        heatmap_combined = np.abs(heatmap_combined)
+        threshold = cumulative_sum_threshold(heatmap_combined, 100 - outlier_perc)
+        #default_cmap = "Blues"
+        vmin, vmax = 0, 1
+    else:
+        raise AssertionError("Heatmap normalization sign type is not valid.")
+
+    heatmap_scaled = normalize_scale(heatmap_combined, threshold)
+    if (vmin == -1) and (vmax == 1):
+      heatmap_scaled = minmax_scale_img_posneg(heatmap_scaled)
+    return heatmap_scaled, default_cmap, vmin, vmax
+
+def tensor_to_img(tensor, norm_std=None, norm_mean=None, to_numpy=False, cmap_norm=None,\
+                  cmap=None, cmap_alwaysscale=False, overlay_bg=None, **kwargs):
+    if norm_std is not None and norm_mean is not None:
+        tensor_ = copy.deepcopy(tensor)
+        for t, s, m in zip(tensor_, norm_std, norm_mean):
+            t.mul_(s).add_(m)
+    else:
+      tensor_ = tensor
+
+    if to_numpy:
+      img_ = tensor_.cpu().detach().numpy()
+      if (len(img_.shape) == 3) and (img_.shape[0] == 3):
+        img_ = np.transpose(img_, (1,2,0))
+        #img_ = np.where(img_ > 0, img_, 0)
+      if cmap_norm is not None:
+        img_, default_cmap, vmin, vmax = normalize_heatmap(img_, cmap_norm,\
+                                                        **kwargs)
+        if cmap is None:
+          cmap = default_cmap
+      if cmap is not None:
+          img_ = apply_cmap(img_, cmap, alwaysscale=cmap_alwaysscale, overlay_bg=overlay_bg)
+    else:
+      img_ = torchvision.transforms.ToPILImage()(tensor_)
+
+    return img_
+
+def apply_cmap(img, cmap, cmap_norm=None, alwaysscale=False, overlay_bg=None, **kwargs):
+    if len(img.shape) == 3:
+      img = np.mean(img, axis=2) #cv2.cvtColor(img, cv2.COLOR_RGB2GRAY) #
+    inf_dec = 1e-5
+    if cmap_norm is not None:
+        img, _, _, _ = normalize_heatmap(img, cmap_norm,\
+                                         **kwargs)
+    elif alwaysscale or (img.min() < 0 - inf_dec) or (img.max() > 1 + inf_dec):
+        img = preprocessing.MinMaxScaler().fit_transform(img)
+    colormap = plt.get_cmap(cmap)
+    img = np.delete(colormap(img), 3, 2)
+    if overlay_bg is not None:
+        if (len(overlay_bg.shape) == 3):
+            if (overlay_bg.shape[0] == 3):
+                overlay_bg = np.transpose(overlay_bg, (1,2,0))
+            overlay_bg = cv2.cvtColor(overlay_bg, cv2.COLOR_RGB2GRAY)
+        if (len(overlay_bg.shape) == 2):
+            overlay_bg = np.stack((overlay_bg,)*3, axis=-1)
+        img = heatmap_overlay(img, overlay_bg) / 255
+    return img
+
+def create_attribution_grid(attribution, cmap=None, cmap_norm=None):
+    if len(attribution.shape) == 4:
+        attribution = attribution.squeeze()
+    if len(attribution.shape) != 3:
+        raise ValueError("Attribution map should have 3 dimensions")
+    n, w, h = attribution.shape
+    grid_size = math.ceil(math.sqrt(n))
+
+    # Create an empty array for the grid
+    grid_image = np.zeros((grid_size * w, grid_size * h), dtype=float)
+
+    # Fill the grid with images
+    for i in range(grid_size):
+        for j in range(grid_size):
+            p = i * grid_size + j
+            if p < n:
+                current_filter = preprocessing.MinMaxScaler().fit_transform(attribution[p])
+                grid_image[i * w:(i + 1) * w, j * h:(j + 1) * h] = current_filter
+
+    if cmap is not None:
+        grid_image = apply_cmap(grid_image, cmap, cmap_norm)
+
+    return grid_image
+
 def img_np_from_fig(fig, dpi=144):
     buffer = io.BytesIO()
     fig.savefig(buffer, format="png", dpi=dpi)
@@ -478,16 +637,16 @@ def compare_img_pred_viz(img_np, viz_np, y_true, y_pred, probs_s=None, title=Non
     gridspec = plt.GridSpec(3, 5, wspace=0.5,\
                             hspace=0.4, figure=fig)
     orig_img_ax = plt.subplot(gridspec[:2, :2])
+    orig_img_ax.grid(False)
     orig_img_ax.imshow(img_np, interpolation='lanczos')
-    orig_img_ax.grid(b=None)
     orig_img_ax.set_title("Actual Label: " + r"$\bf{" + str(y_true) + "}$")
     viz_img_ax = plt.subplot(gridspec[:3, 2:])
+    viz_img_ax.grid(False)
     viz_img_ax.imshow(viz_np, interpolation='spline16')
-    viz_img_ax.grid(b=None)
     pred_ax = plt.subplot(gridspec[2, :2])
     pred_ax.set_title("Predicted Label: " + r"$\bf{" + str(y_pred) + "}$")
     pred_ax.imshow(barh_np, interpolation='spline36')
-    pred_ax.grid(b=None)
+    pred_ax.axis('off')
     pred_ax.axes.get_xaxis().set_visible(False)
     pred_ax.axes.get_yaxis().set_visible(False)
     if title is not None:
