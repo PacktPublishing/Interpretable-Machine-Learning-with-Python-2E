@@ -1,4 +1,6 @@
 # Byte-compiled / optimized / DLL files
+**/catboost_info/
+**/__MACOSX/
 __pycache__/
 **/__pycache__/
 **/__pycache__/*.pyc
