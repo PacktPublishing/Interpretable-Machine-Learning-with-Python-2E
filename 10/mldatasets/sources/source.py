@@ -126,7 +126,7 @@ class Source:
         nkwargs = locals()['kwargs']
         if 'prepare' in nkwargs and nkwargs['prepare'] and\
             'prepcmds' in nkwargs and len(nkwargs['prepcmds']) and\
-            len(nkwargs['files']) and not isinstance(nkwargs['files'][0]['content'], np.ndarray):
+            len(nkwargs['files']) and isinstance(nkwargs['files'][0]['content'], pd.DataFrame):
                 for i in range(len(nkwargs['files'])):
                     if isinstance(nkwargs['files'][i]['content'], pd.DataFrame):
                         df = nkwargs['files'][i]['content'].copy()

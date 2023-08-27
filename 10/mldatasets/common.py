@@ -1,5 +1,4 @@
-import subprocess
-import sys
+import subprocess, sys, copy, io, warnings
 import pandas as pd
 import numpy as np
 import math
@@ -8,18 +7,9 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as plticker
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib import cm
-from alibi.utils.mapping import ohe_to_ord, ord_to_ohe
-import statsmodels.api as sm
-from mlxtend.plotting import plot_decision_regions
-from itertools import cycle
 import seaborn as sns
-import copy
-import io
 import cv2
-import warnings
 from scipy.spatial import distance
-from tqdm.notebook import trange
-from aif360.metrics import ClassificationMetric
 import torchvision
 from scipy import sparse
 
@@ -45,9 +35,10 @@ def runcmd(cmd, verbose=False):
         numlines = numlines + 1
     return error, output.strip(), numlines
 
-def make_dummies_with_limits(df, colname, min_recs=0.005,\
+def make_dummies_with_limits(df_, colname, min_recs=0.005,\
                              max_dummies=20, defcatname='Other',\
                              nospacechr='_'):
+    df = df_.copy()
     if min_recs < 1:
         min_recs = df.shape[0]*min_recs
     topvals_df = df.groupby(colname).size().reset_index(name="counts").\
@@ -377,6 +368,10 @@ def encode_classification_error_vector(y_true, y_pred):
     return error_vector, error_labels
 
 def describe_cf_instance(X, explanation, class_names, cat_vars_ohe=None, category_map=None, feature_names=None, eps=1e-2):
+    try:
+        from alibi.utils.mapping import ohe_to_ord
+    except:
+        raise ModuleNotFoundError("`alibi` must be installed to execute this function")
     print("Instance Outcomes and Probabilities")
     print("-" * 48)
     max_len = len(max(feature_names, key=len))
@@ -421,6 +416,11 @@ def describe_cf_instance(X, explanation, class_names, cat_vars_ohe=None, categor
 def create_decision_plot(X, y, model, feature_index, feature_names, X_highlight,\
                          filler_feature_values, filler_feature_ranges=None, ax=None,\
                          add_constant=True):
+    try:
+        from mlxtend.plotting import plot_decision_regions
+        import statsmodels.api as sm
+    except:
+        raise ModuleNotFoundError("`statsmodels` and `mlxtend` must be installed to execute this function")
     if feature_names is None:
         feature_names=feature_index
     if add_constant:
@@ -716,6 +716,10 @@ def find_closest_datapoint_idx(point, points, metric_or_fn='euclidean', find_exa
 
 def approx_predict_ts(X, X_df, gen_X, ts_mdl, dist_metric='euclidean', lookback=0,\
                     filt_fn=None, X_scaler=None, y_scaler=None, progress_bar=False, no_info=np.array([[0]])):
+    try:
+        from tqdm.notebook import trange
+    except:
+        raise ModuleNotFoundError("`tqdm` must be installed to execute this function")
     b_size = gen_X[0][0].shape[0]
     preds = None
     if progress_bar:
@@ -1144,7 +1148,10 @@ def compare_df_plots(df1, df2, title1=None, title2=None, y_label=None, x_label=N
     
 def compute_aif_metrics(dataset_true, dataset_pred, unprivileged_groups, privileged_groups,\
                         ret_eval_dict=True):
-
+    try:
+        from aif360.metrics import ClassificationMetric
+    except:
+        raise ModuleNotFoundError("`aif360` must be installed to execute this function")
     metrics_cls = ClassificationMetric(dataset_true, dataset_pred, 
                                                  unprivileged_groups=unprivileged_groups,
                                                  privileged_groups=privileged_groups)
@@ -1162,3 +1169,49 @@ def compute_aif_metrics(dataset_true, dataset_pred, unprivileged_groups, privile
         return metrics_dict, metrics_cls
     else:
         return metrics_cls
+
+def plot_polar(df, r, theta, name=None, show=True):
+    try:
+        import plotly.express as px
+    except:
+        raise ModuleNotFoundError("`plotly` must be installed to execute this function")
+    fig = px.line_polar(df, r=r, theta=theta, line_close=True, title=name)
+    fig.update_traces(fill='toself')
+    
+    if show:
+        try:
+            import kaleido
+        except:
+            raise ModuleNotFoundError("`kaleido` must be installed to execute this function")
+        if name is None:
+            name = 'default'
+        fig.write_image(f"{name}.png")
+        show_image(f"{name}.png", width=800)
+    else:
+        return fig
+    
+def show_image(path_to_image, width=None, height=None):
+    from IPython.display import display, HTML #Image,
+    from base64 import b64encode
+    
+    mime_type = None
+    path_to_image = path_to_image.lower()
+
+    # More MIME types:
+    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+    if path_to_image.endswith('.jpg') or path_to_image.endswith('.jpeg'):
+        mime_type = 'image/jpeg'
+    elif path_to_image.endswith('.png'):
+        mime_type = 'image/png'
+    elif path_to_image.endswith('.gif'):
+        mime_type = 'image/gif'
+    else:
+        raise ValueError('Unknown extension: %s' % (path_to_image))
+
+    img = open(path_to_image, 'rb').read()
+    data_url = 'data:image/jpeg;base64,' + b64encode(img).decode()
+
+    width_str = "width='%d'" % (width) if width is not None else ''
+    height_str = "height='%d'" % (width) if height is not None else ''
+
+    display(HTML("<img src='%s' %s%s>" % (data_url, width_str, height_str)))

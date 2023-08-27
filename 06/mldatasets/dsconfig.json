@@ -61,6 +61,18 @@
             "prepcmds":["df = df[(df.country.isin(['US', 'GB', 'CA', 'AU', 'NZ', 'IE']))]", "df = df[df.age <= 90]", "df = df[(df.birthn > 1) & (df.birthn < 11) & (df.birthpos <= df.birthn) & (df.birthpos > 0)]", "df = pd.get_dummies(df, columns=['gender', 'country', 'source']).rename({'gender_0':'gender_undefined', 'gender_1':'gender_male', 'gender_2':'gender_female', 'gender_3':'gender_other', 'source_0':'source_undefined', 'source_1':'source_google', 'source_2':'source_direct', 'source_3':'source_other'}, axis=1)", "df.loc[:, 'birthorder'] = 0", "df.loc[(df.birthpos == 1), 'birthorder'] = 1", "df.loc[(df.birthpos > 1) & (df.birthpos < df.birthn), 'birthorder'] = 2", "df.loc[(df.birthpos > 1) & (df.birthpos == df.birthn), 'birthorder'] = 3", "df.drop(['birthpos'], axis=1, inplace=True)"]
         },
         {
+            "name":"usedcars",
+            "source":"URL",
+            "location":"https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/raw/main/datasets/usedcars-2e.csv.zip",
+            "filenames":"usedcars_imputed.csv",
+            "filetypes":"csv",
+            "target":"price", 
+            "csvopts":{
+                "dtype":{"zip":"object"}
+            },
+            "prepcmds":["df.set_index('id', inplace=True)", "df = df.drop(['epa_co2TailpipeGpm', 'epa_lv2', 'epa_pv2', 'epa_pv4', 'epa_ghgScore', 'epa_comb08', 'model_size', 'epa_lv4', 'est_households_meanincome_usd', 'regcenter_dist', 'paint_color', 'epa_hpv', 'posting_tz', 'posting_hr', 'epa_hlv', 'epa_phevBlended', 'posting_dow', 'region_is_rural', 'region_is_state'], axis=1)"]
+        },
+        {
             "name":"wine-quality",
             "source":"URL",
             "location":"https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv",
@@ -203,6 +215,18 @@
             "filesplits":["train", "val", "test", "test_400"],
             "filetypes":["img", "img", "img", "img"],
             "target":"__dirname__"
+        },
+        {
+            "name":"nyc-reviews",
+            "source":"URL",
+            "location":"https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/raw/main/datasets/nyc_restaurant_reviews.zip",
+            "filenames":"NYC_reviews_goemotions.csv",
+            "filetypes":"csv",
+            "target":"preview_score", 
+            "csvopts":{
+                "parse_dates":["review_date"]
+            },
+            "prepcmds":["df = df.drop_duplicates()", "df.set_index('parse_count', inplace=True)"]
         },
         {
             "name":"traffic-volume",
