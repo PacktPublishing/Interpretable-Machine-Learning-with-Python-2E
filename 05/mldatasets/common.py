@@ -799,7 +799,7 @@ def compare_confusion_matrices(y_true_1, y_pred_1, y_true_2, y_pred_2, group_1, 
             print("\tRatio FPRs:\t\t%.2f x" % (fpr_1/fpr_2))
             return (fpr_1/fpr_2)
         
-def discretize(v, v_intervals, use_quartiles=False, use_continuous_bins=False):
+def discretize(v, v_intervals, use_quantiles=False, use_continuous_bins=False):
     if isinstance(v, (pd.core.series.Series, np.ndarray)) and isinstance(v_intervals, (list, np.ndarray)) and len(np.unique(v)) != len(v_intervals):
         raise Exception("length of interval must match unique items in array")
         
@@ -811,12 +811,12 @@ def discretize(v, v_intervals, use_quartiles=False, use_continuous_bins=False):
     if (np.isin(v.dtype, [int, float, 'int8', 'int16', 'int32', 'float16', 'float32'])) and (isinstance(v_intervals, (int))) and (len(np.unique(v)) >= v_intervals) and (max(v) > min(v)):
         #v is discretizable, otherwise assumed to be already discretized
         if use_continuous_bins:
-            if use_quartiles:
+            if use_quantiles:
                 v, bins = pd.qcut(v, v_intervals, duplicates='drop', retbins=True, labels=True, precision=2)
             else:
                 v, bins = pd.cut(v, v_intervals, duplicates='drop', retbins=True, labels=True, precision=2)
         else:
-            if use_quartiles:
+            if use_quantiles:
                 v = pd.qcut(v, v_intervals, duplicates='drop', precision=2)
             else:
                 v = pd.cut(v, v_intervals, duplicates='drop', precision=2)
@@ -836,7 +836,7 @@ def discretize(v, v_intervals, use_quartiles=False, use_continuous_bins=False):
                        
     return v, bins
 
-def plot_prob_progression(x, y, x_intervals=7, use_quartiles=False,\
+def plot_prob_progression(x, y, x_intervals=7, use_quantiles=False,\
                           xlabel=None, ylabel=None, title=None, model=None, X_df=None, x_col=None,\
                           mean_line=False, figsize=(12,6), x_margin=0.01, save_name=None):
     if isinstance(x, list): x = np.array(x)
@@ -856,14 +856,14 @@ def plot_prob_progression(x, y, x_intervals=7, use_quartiles=False,\
     elif len(np.unique(y)) > 2 and ((max(y) <= 1) or (min(y) >= 0)):
         raise Exception("y dimension if has more than two values must have range between between 0-1")
     x_use_continuous_bins = (model is not None) and (isinstance(x_intervals, (list, np.ndarray)))
-    x, x_bins = discretize(x, x_intervals, use_quartiles, x_use_continuous_bins)
+    x, x_bins = discretize(x, x_intervals, use_quantiles, x_use_continuous_bins)
     x_range = [*range(len(x_bins))]
     plot_df = pd.DataFrame({'x':x_range})
     if (model is not None) and (X_df is not None) and (x_col is not None):
         preds = model.predict(X_df).squeeze()
         if len(np.unique(preds)) <= 2:
             preds = model.predict_proba(X_df)[:,1]
-        x_, _ = discretize(X_df[x_col], x_intervals, use_quartiles, x_use_continuous_bins)
+        x_, _ = discretize(X_df[x_col], x_intervals, use_quantiles, x_use_continuous_bins)
         xy_df = pd.DataFrame({'x':x_, 'y':preds})
     else:
         xy_df = pd.DataFrame({'x':x,'y':y})
@@ -888,7 +888,7 @@ def plot_prob_progression(x, y, x_intervals=7, use_quartiles=False,\
     sns.lineplot(data=probs_df, x='x', y='y', ax=ax0)
     ax0.set_ylabel('Probability', fontsize=15)
     ax0.set_xlabel('')
-    ax0.grid(b=True, axis='x', which='minor', color='w', linestyle=':')
+    ax0.grid(visible=True, axis='x', which='minor', color='w', linestyle=':')
     #ax0.set_xticks([], [])
     ax0.margins(x=xh_margin)
     if mean_line:
@@ -904,7 +904,7 @@ def plot_prob_progression(x, y, x_intervals=7, use_quartiles=False,\
         plt.savefig(save_name+'_prog.png', dpi=300, bbox_inches="tight")
     plt.show()
     
-def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quartiles=False, plot_type='contour',\
+def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quantiles=False, plot_type='contour',\
                           xlabel=None, ylabel=None, title=None, model=None, X_df=None, x_col=None, y_col=None,\
                           cmap=None, diff_to_mean=False, annotate=False, color="w", save_name=None):
     if isinstance(x, list): x = np.array(x)
@@ -926,8 +926,8 @@ def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quartiles=F
         raise Exception("z dimension if has more than two values must have range between between 0-1")
     x_use_continuous_bins = (model is not None) and (isinstance(x_intervals, (list, np.ndarray)))
     y_use_continuous_bins = (model is not None) and (isinstance(y_intervals, (list, np.ndarray)))
-    x, x_bins = discretize(x, x_intervals, use_quartiles, x_use_continuous_bins)
-    y, y_bins = discretize(y, y_intervals, use_quartiles, y_use_continuous_bins)
+    x, x_bins = discretize(x, x_intervals, use_quantiles, x_use_continuous_bins)
+    y, y_bins = discretize(y, y_intervals, use_quantiles, y_use_continuous_bins)
     x_range = [*range(len(x_bins))]
     #if isinstance(y_intervals, (int)):
     y_range = [*range(len(y_bins))]
@@ -941,8 +941,8 @@ def plot_prob_contour_map(x, y, z, x_intervals=7, y_intervals=7, use_quartiles=F
         preds = model.predict(X_df).squeeze()
         if len(np.unique(preds)) <= 2:
             preds = model.predict_proba(X_df)[:,1]
-        x_, _ = discretize(X_df[x_col], x_intervals, use_quartiles, x_use_continuous_bins)
-        y_, _ = discretize(X_df[y_col], y_intervals, use_quartiles, y_use_continuous_bins)
+        x_, _ = discretize(X_df[x_col], x_intervals, use_quantiles, x_use_continuous_bins)
+        y_, _ = discretize(X_df[y_col], y_intervals, use_quantiles, y_use_continuous_bins)
         xyz_df = pd.DataFrame({'x':x_, 'y':y_, 'z':preds})
     else:
         xyz_df = pd.DataFrame({'x':x,'y':y,'z':z})
@@ -1128,7 +1128,7 @@ def compare_df_plots(df1, df2, title1=None, title2=None, y_label=None, x_label=N
         ax1.yaxis.set_major_formatter(y_formatter)
     if x_formatter is not None:
         ax1.xaxis.set_major_formatter(x_formatter)
-    ax1.grid(b=True)
+    ax1.grid(visible=True)
     ax1.right_ax.grid(False)
     df2.plot(ax=ax2, fontsize=13, **plot_args)
     if title2 is not None:
