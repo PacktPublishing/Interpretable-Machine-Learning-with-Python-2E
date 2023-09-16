@@ -1185,8 +1185,10 @@ def plot_polar(df, r, theta, name=None, show=True):
             raise ModuleNotFoundError("`kaleido` must be installed to execute this function")
         if name is None:
             name = 'default'
-        fig.write_image(f"{name}.png")
-        show_image(f"{name}.png", width=800)
+        cwd = os.getcwd()
+        img_path = os.path.join(cwd, f"{name}.png")
+        fig.write_image(img_path)
+        show_image(img_path, width=800)
     else:
         return fig
     
@@ -1207,10 +1209,6 @@ def show_image(path_to_image, width=None, height=None):
         mime_type = 'image/gif'
     else:
         raise ValueError('Unknown extension: %s' % (path_to_image))
-
-    cwd = os.getcwd()
-    if os.path.exists(os.path.join(cwd, path_to_image)):
-      path_to_image = os.path.join(cwd, path_to_image)
 
     img = open(path_to_image, 'rb').read()
     data_url = 'data:image/jpeg;base64,' + b64encode(img).decode()
