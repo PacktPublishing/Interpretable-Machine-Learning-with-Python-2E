@@ -1208,6 +1208,10 @@ def show_image(path_to_image, width=None, height=None):
     else:
         raise ValueError('Unknown extension: %s' % (path_to_image))
 
+    cwd = os.getcwd()
+    if os.path.exists(os.path.join(cwd, path_to_image)):
+      path_to_image = os.path.join(cwd, path_to_image)
+
     img = open(path_to_image, 'rb').read()
     data_url = 'data:image/jpeg;base64,' + b64encode(img).decode()
 
