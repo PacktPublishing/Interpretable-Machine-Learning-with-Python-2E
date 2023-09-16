@@ -1185,6 +1185,8 @@ def plot_polar(df, r, theta, name=None, show=True):
             raise ModuleNotFoundError("`kaleido` must be installed to execute this function")
         if name is None:
             name = 'default'
+
+        name = name.lower()
         cwd = os.getcwd()
         img_path = os.path.join(cwd, f"{name}.png")
         fig.write_image(img_path)
@@ -1197,7 +1199,6 @@ def show_image(path_to_image, width=None, height=None):
     from base64 import b64encode
     
     mime_type = None
-    path_to_image = path_to_image.lower()
 
     # More MIME types:
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
