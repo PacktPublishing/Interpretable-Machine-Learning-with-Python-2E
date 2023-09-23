@@ -1062,7 +1062,7 @@ def compare_image_predictions(X_mod, X_orig, y_mod, y_orig, y_mod_prob=None, y_o
             for i, s in enumerate(samples_idx, start=1):
                 plt.subplot(2, num_samples, i)
                 plt.imshow(X_mod[s])
-                plt.grid(b=None)
+                plt.grid(False)
                 if num_samples > 3:
                     plt.axis('off')
                 if y_mod_prob is None:
@@ -1072,7 +1072,7 @@ def compare_image_predictions(X_mod, X_orig, y_mod, y_orig, y_mod_prob=None, y_o
             for i, s in enumerate(samples_idx, start=1):
                 plt.subplot(2, num_samples, i+num_samples)
                 plt.imshow(X_orig[s])
-                plt.grid(b=None)
+                plt.grid(False)
                 if num_samples > 3:
                     plt.axis('off')
                 if y_orig_prob is None:
@@ -1139,7 +1139,7 @@ def compare_df_plots(df1, df2, title1=None, title2=None, y_label=None, x_label=N
         ax2.get_legend().set_bbox_to_anchor((0.7, 0.99))
     if x_formatter is not None:
         ax2.xaxis.set_major_formatter(x_formatter)
-    ax2.grid(b=True)
+    ax2.grid(False)
     ax2.right_ax.grid(False)
     fig.tight_layout()
     if save_name is not None:
