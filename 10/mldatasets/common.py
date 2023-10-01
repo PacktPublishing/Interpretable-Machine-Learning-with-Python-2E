@@ -1,4 +1,4 @@
-import subprocess, sys, copy, io, warnings
+import subprocess, sys, copy, io, warnings, os
 import pandas as pd
 import numpy as np
 import math
@@ -1139,7 +1139,7 @@ def compare_df_plots(df1, df2, title1=None, title2=None, y_label=None, x_label=N
         ax2.get_legend().set_bbox_to_anchor((0.7, 0.99))
     if x_formatter is not None:
         ax2.xaxis.set_major_formatter(x_formatter)
-    ax2.grid(False)
+    ax2.grid(True)
     ax2.right_ax.grid(False)
     fig.tight_layout()
     if save_name is not None:
@@ -1185,8 +1185,12 @@ def plot_polar(df, r, theta, name=None, show=True):
             raise ModuleNotFoundError("`kaleido` must be installed to execute this function")
         if name is None:
             name = 'default'
-        fig.write_image(f"{name}.png")
-        show_image(f"{name}.png", width=800)
+
+        name = name.lower()
+        cwd = os.getcwd()
+        img_path = os.path.join(cwd, f"{name}.png")
+        fig.write_image(img_path)
+        show_image(img_path, width=800)
     else:
         return fig
     
@@ -1195,7 +1199,6 @@ def show_image(path_to_image, width=None, height=None):
     from base64 import b64encode
     
     mime_type = None
-    path_to_image = path_to_image.lower()
 
     # More MIME types:
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
