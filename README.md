@@ -51,11 +51,11 @@ You can install the software required in any operating system by first installin
 
 While hardware requirements for Jupyter are relatively modest, we recommend a machine with at least 4 cores of 2Ghz and 8Gb of RAM. A GPU is highly recommended for chapters with Deep Learning ([7](/07), [8](/08), [9](/09), [12](/12), and [13](/13)). If you don't have a GPU in your machine, we recommend you use [Google Colab](https://colab.research.google.com/) for these chapters. Skip to the Google Colab section for details.
 
-### Python Packages
+#### Python Packages
 
 The packages required for the entire book are in [requirements.txt](requirements.txt) and there's a similar file in in each chapter folder specifying the requirements for the corresponding chapter. For installation instructions, see below.
 
-## Installation Instructions
+### Installation Instructions
 
 Once you clone this repository, there are many ways to setup your Python environment and Jupyter installation. You may have your packages managed by Anaconda or Miniconda (`conda`), Conan (`conan`), Mamba (`mamba`), or Poetry (`poetry`). Either way, we strongly suggest you setup an independent environment and install the requirements there with `python` like this:
 
@@ -110,7 +110,7 @@ python -m ipykernel install --user --name=myvenv
 jupyter notebook
 ```
 
-## Google Colab
+### Google Colab
 
 You can run  all the code in Google Colab with the following links:
 
