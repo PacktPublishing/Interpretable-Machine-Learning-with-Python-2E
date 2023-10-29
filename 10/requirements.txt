@@ -1,0 +1,12 @@
+pandas~=1.5.3
+numpy~=1.23.5
+scikit-learn~=1.2.2
+matplotlib~=3.7.1
+seaborn~=0.12.2
+scipy~=1.11.3
+mlxtend~=0.22.0
+tqdm~=4.66.1
+machine-learning-datasets~=0.1.23
+xgboost~=2.0.0
+shap~=0.42.1
+sklearn-genetic-opt~=0.10.1

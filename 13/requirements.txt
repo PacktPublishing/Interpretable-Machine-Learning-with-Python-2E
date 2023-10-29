@@ -1,0 +1,11 @@
+numpy~=1.23.5
+scikit-learn~=1.2.2
+matplotlib~=3.7.1
+seaborn~=0.12.2
+tensorflow~=2.14.0
+tqdm~=4.66.1
+machine-learning-datasets~=0.1.23
+adversarial-robustness-toolbox~=1.12.2 # --no-deps
+scipy~=1.11.3
+setuptools
+six>=1.13.0

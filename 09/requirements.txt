@@ -1,0 +1,12 @@
+pandas~=1.5.3
+numpy~=1.23.5
+scikit-learn~=1.2.2
+matplotlib~=3.7.1
+seaborn~=0.12.2
+tensorflow~=2.14.0
+machine-learning-datasets~=0.1.23
+shap~=0.42.1
+ray~=2.7.1
+alibi~=0.9.4
+SALib~=1.4.7 
+distython==0.0.3
