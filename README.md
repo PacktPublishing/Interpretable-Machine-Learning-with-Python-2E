@@ -190,22 +190,6 @@ The book’s initial section introduces interpretability, emphasizing its signif
 By the book’s conclusion, readers will be adept at using interpretability techniques to gain deeper insights into machine learning models.
 
 
-1. Chapter 1, [Interpretation, Interpretability, and Explainability; and Why Does It All Matter?](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/01)
-2. Chapter 2, [Key Concepts of Interpretability](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/02)
-3. Chapter 3, [Interpretation Challenges](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/03)
-4. Chapter 4, [Global Model-Agnostic Interpretation Methods](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/04)
-5. Chapter 5, [Local Model-Agnostic Interpretation Methods](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/05)
-6. Chapter 6, [Anchors and Counterfactual Explanations](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/06)
-7. Chapter 7, [Visualizing Convolutional Neural Networks](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/07)
-8. Chapter 8, [Interpreting NLP Transformers](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/08)
-9. Chapter 9, [Interpretation Methods for Multivariate Forecasting and Sensitivity Analysis](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/09)
-10. Chapter 10, [Feature Selection and Engineering for Interpretability](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/10)
-11. Chapter 11, [Bias Mitigation and Causal Inference Methods](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/11)
-12. Chapter 12, [Monotonic Constraints and Model Tuning for Interpretability](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/12)
-13. Chapter 13, [Adversarial Robustness](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/13)
-14. Chapter 14, What’s Next for Machine Learning Interpretability?
-
-
 ### Chapter 01, Interpretation, Interpretability, and Explainability; and Why Does It All Matter?
 We live in a world whose rules and procedures are ever-increasingly governed by data and algorithms.
 For instance, there are rules about who gets approved for credit or released on bail, and which social media posts might get censored. There are also procedures to determine which marketing tactics are most effective and which chest x-ray features might diagnose a positive case of pneumonia.
@@ -242,9 +226,9 @@ The following are the main topics we are going to cover in this chapter:
 * What is feature importance?
 * Gauging feature importance with model-agnostic methods
 * Using SHAP, PDP, and ALE plots to visualize:
-** Global explanations
-** Feature summary explanations
-** Feature interactions
+  * Global explanations
+  * Feature summary explanations
+  * Feature interactions
 
 ### Chapter 05, Local Model-Agnostic Interpretation Methods
 In the previous two chapters, we dealt exclusively with global interpretation methods. This chapter will foray into local interpretation methods, which are there to explain why a single prediction or a group of predictions was made. It will cover how to leverage SHapley Additive exPlanations (SHAP’s) KernelExplainer and also another method called Local Interpretable Model-agnostic Explanations (LIME) for local interpretations. We will also explore how to use these methods with both tabular and text data.
