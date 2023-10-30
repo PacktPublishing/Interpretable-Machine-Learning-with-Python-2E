@@ -205,6 +205,7 @@ By the book’s conclusion, readers will be adept at using interpretability tech
 13. Chapter 13, [Adversarial Robustness](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/13)
 14. Chapter 14, What’s Next for Machine Learning Interpretability?
 
+
 ### Chapter 01, Interpretation, Interpretability, and Explainability; and Why Does It All Matter?
 We live in a world whose rules and procedures are ever-increasingly governed by data and algorithms.
 For instance, there are rules about who gets approved for credit or released on bail, and which social media posts might get censored. There are also procedures to determine which marketing tactics are most effective and which chest x-ray features might diagnose a positive case of pneumonia.
@@ -218,7 +219,6 @@ Machine learning model interpretation enables you to understand the logic behind
 * Understanding the difference between interpretation and explainability
 * A business case for interpretability
 
-
 ### Chapter 02, Key Concepts of Interpretability
 This book covers many model interpretation methods. Some produce metrics, others create visuals, and some do both; some depict models broadly and others granularly. In this chapter, we will learn about two methods, feature importance and decision regions, as well as the taxonomies used to describe these methods. We will also detail what elements hinder machine learning interpretability as a primer to what lies ahead.
 The following are the main topics we are going to cover in this chapter:
@@ -226,65 +226,115 @@ The following are the main topics we are going to cover in this chapter:
 * Appreciating what hinders machine learning interpretability
 
 ### Chapter 03, Interpretation Challenges
-
-
-**Key Insights**:
+In this chapter, we will discuss the traditional methods used for machine learning interpretation for both regression and classification. This includes model performance evaluation methods such as RMSE, R-squared, AUC, ROC curves, and the many metrics derived from confusion matrices. We will then examine the limitations of these performance metrics and explain what exactly makes “white-box” models intrinsically interpretable and why we cannot always use white-box models. To answer these questions, we’ll consider the trade-off between prediction performance and model interpretability. Finally, we will discover some new “glass-box” models such as Explainable Boosting Machines (EBMs) and GAMI-Net that attempt to not compromise on this trade-off between predictive performance and interpretability.
+The following are the main topics that will be covered in this chapter:
+* Reviewing traditional model interpretation methods
+* Understanding the limitations of traditional model interpretation methods
+* Studying intrinsically interpretable (white-box) models
+* Recognizing the trade-off between performance and interpretability
+* Discovering newer interpretable (glass-box) models
 
 ### Chapter 04, Global Model-Agnostic Interpretation Methods
-
-
-**Key Insights**:
+In the first part of this book, we introduced the concepts, challenges, and purpose of machine learning interpretation. This chapter kicks off the second part, which dives into a vast array of methods that are used to diagnose models and understand their underlying data. One of the biggest questions answered by interpretation methods is: What matters most to the model and how does it matter? Interpretation methods can shed light on the overall importance of features and how they—individually or combined—impact a model’s outcome. This chapter will provide a theoretical and practical foundation to approach these questions.
+Initially, we will explore the notion of feature importance by examining the model’s inherent parameters. Following that, we will study how to employ permutation feature importance in a model-agnostic manner to effectively, reliably, and autonomously rank features. Finally, we will outline how SHapley Additive exPlanations (SHAP) can rectify some of the shortcomings of permutation feature importance.
+This chapter will look at several ways to visualize global explanations, such as SHAP’s bar and beeswarm plots, and then dive into feature-specific visualizations like Partial Dependence Plots (PDP) and Accumulated Local Effect (ALE) plots. Lastly, feature interactions can enrich explanations because features often team up, so we will discuss 2-dimensional PDP and ALE plots.
+The following are the main topics we are going to cover in this chapter:
+* What is feature importance?
+* Gauging feature importance with model-agnostic methods
+* Using SHAP, PDP, and ALE plots to visualize:
+** Global explanations
+** Feature summary explanations
+** Feature interactions
 
 ### Chapter 05, Local Model-Agnostic Interpretation Methods
-
-
-**Key Insights**:
+In the previous two chapters, we dealt exclusively with global interpretation methods. This chapter will foray into local interpretation methods, which are there to explain why a single prediction or a group of predictions was made. It will cover how to leverage SHapley Additive exPlanations (SHAP’s) KernelExplainer and also another method called Local Interpretable Model-agnostic Explanations (LIME) for local interpretations. We will also explore how to use these methods with both tabular and text data.
+These are the main topics we are going to cover in this chapter:
+* Leveraging SHAP’s KernelExplainer for local interpretations with SHAP values
+* Employing LIME
+* Using LIME for Natural Language Processing (NLP)
+* Trying SHAP for NLP
+* Comparing SHAP with LIME
 
 ### Chapter 06, Anchors and Counterfactual Explanations
-
-
-**Key Insights**:
+In previous chapters, we learned how to attribute model decisions to features and their interactions with state-of-the-art global and local model interpretation methods. However, the decision boundaries are not always easy to define or interpret with these methods. Wouldn’t it be nice to be able to derive human-interpretable rules from model interpretation methods? In this chapter, we will cover a few human-interpretable, local, classification-only model interpretation methods. We will first learn how to use scoped rules called anchors to explain complex models with statements such as if X conditions are met, then Y is the outcome. Then, we will explore counterfactual explanations that follow the form if Z conditions aren’t met, then Y is not the outcome.
+These are the main topics we are going to cover in this chapter:
+* Understanding anchor explanations
+* Exploring counterfactual explanations
 
 ### Chapter 07, Visualizing Convolutional Neural Networks
-
-
-**Key Insights**:
-
+Up to this point, we have only dealt with tabular data and, briefly, text data, in Chapter 5, Local Model-Agnostic Interpretation Methods. This chapter will exclusively explore interpretation methods that work with images and, in particular, with the Convolutional Neural Network (CNN) models that train image classifiers. Typically, deep learning models are regarded as the epitome of black box models. However, one of the benefits of a CNN is how easily it lends itself to visualization, so we can not only visualize outcomes but also every step of the learning process with activations. The possibility of interpreting these steps is rare among so-called black box models. Once we have grasped how CNNs learn, we will study how to use state-of-the-art gradient-based attribution methods, such as saliency maps and Grad-CAM to debug class attribution. Lastly, we will extend our attribution debugging know-how with perturbation-based attribution methods such as occlusion sensitivity and KernelSHAP.
+These are the main topics we are going to cover:
+* Assessing the CNN classifier with traditional interpretation methods
+* Visualizing the learning process with an activation-based method
+* Evaluating misclassifications with gradient-based attribution methods
+* Understanding classifications with perturbation-based attribution methods
 
 ### Chapter 08, Interpreting NLP Transformers
-
-
-**Key Insights**:
+In the last chapter, we learned about applying explanation methods to a specific type of deep learning model architecture, convolutional neural networks. In this chapter, we will provide some tools to do the same with the transformer model architecture. Transformer models are becoming increasingly popular, and their most common use case is Natural Language Processing (NLP). We broached the subject of NLP in Chapter 5, Local Model-Agnostic Interpretation Methods. In this chapter, we will do so too but with transformer-specific methods and tools. First, we will discuss how to visualize attention mechanisms, followed by interpreting integrated gradient attributions, and lastly, exploring the Swiss Army knife that is the Learning Interpretability Tool (LIT).
+These are the main topics we will cover:
+* Visualizing attention with BertViz
+* Interpreting token attributions with integrated gradients
+* LIME, counterfactuals, and other possibilities with the LIT
 
 ### Chapter 09, Interpretation Methods for Multivariate Forecasting and Sensitivity Analysis
-
-
-**Key Insights**:
+Throughout this book, we have learned about various methods we can use to interpret supervised learning models. They can be quite effective at assessing models while also uncovering their most influential predictors and their hidden interactions. But as the term supervised learning suggests, these methods can only leverage known samples and permutations based on these known samples’ distributions. However, when these samples represent the past, things can get tricky! As the Nobel laureate in physics Niels Bohr famously quipped, “Prediction is very difficult, especially if it’s about the future.”
+Indeed, when you see data points fluctuating in a time series, they may appear to be rhythmically dancing in a predictable pattern – at least in the best-case scenarios. Like a dancer moving to a beat, every repetitive movement (or frequency) can be attributed to seasonal patterns, while a gradual change in volume (or amplitude) is attributed to an equally predictable trend. The dance is inevitably misleading because there are always missing pieces of the puzzle that slightly shift the data points, such as a delay in a supplier’s supply chain causing an unexpected dent in today’s sales figures. To make matters worse, there are also unforeseen catastrophic once-in-a-decade, once-in-a-generation, or simply once-ever events that can radically make the somewhat understood movement of a time series unrecognizable, similar to a ballroom dancer having a seizure. For instance, in 2020, sales forecasts everywhere, either for better or worse, were rendered useless by COVID-19!
+We could call this an extreme outlier event, but we must recognize that models weren’t built to predict these momentous events because they were trained on almost entirely likely occurrences. Not predicting these unlikely yet most consequential events is why we shouldn’t place so much trust in forecasting models to begin with, especially without discussing certainty or confidence bounds.
+This chapter will examine a multivariate forecasting problem with Long Short-Term Memory (LSTM) models. We will first assess the models with traditional interpretation methods, followed by the Integrated Gradient method we learned about in Chapter 7, Visualizing Convolutional Neural Networks, to generate our model’s local attributions.
+But more importantly, we will understand the LSTM’s learning process and limitations better. We will then employ a prediction approximator method and SHAP’s KernelExplainer for both global and local interpretation. Lastly, forecasting and uncertainty are intrinsically linked, and sensitivity analysis is a family of methods designed to measure the uncertainty of the model’s output in relation to its input, so it’s very useful in forecasting scenarios. We will also study two such methods: Morris for factor prioritization and Sobol for factor fixing, which involves cost sensitivity.
+The following are the main topics we are going to cover:
+* Assessing time series models with traditional interpretation methods
+* Generating LSTM attributions with integrated gradients
+* Computing global and local attributions with SHAP’s KernelExplainer
+* Identifying influential features with factor prioritization
+* Quantifying uncertainty and cost sensitivity with factor fixing
 
 ### Chapter 10, Feature Selection and Engineering for Interpretability
-
-
-**Key Insights**:
+In the first three chapters, we discussed how complexity hinders Machine Learning (ML) interpretability. There’s a trade-off because you may need some complexity to maximize predictive performance, yet not to the extent that you cannot rely on the model to satisfy the tenets of interpretability: fairness, accountability, and transparency. This chapter is the first of four focused on how to tune for interpretability. One of the easiest ways to improve interpretability is through feature selection. It has many benefits, such as faster training and making the model easier to interpret. But if these two reasons don’t convince you, perhaps another one will.
+A common misunderstanding is that complex models can self-select features and perform well nonetheless, so why even bother to select features? Yes, many model classes have mechanisms that can take care of useless features, but they aren’t perfect. And the potential for overfitting increases with each one that remains. Overfitted models aren’t reliable, even if they are more accurate. So, while employing model mechanisms such as regularization is still highly recommended to avoid overfitting, feature selection is still useful.
+In this chapter, we will comprehend how irrelevant features adversely weigh on the outcome of a model and thus, the importance of feature selection for model interpretability. Then, we will review filter-based feature selection methods such as Spearman’s correlation and learn about embedded methods such as LASSO and ridge regression. Then, we will discover wrapper methods such as sequential feature selection, and hybrid ones such as Recursive Feature Elimination (RFE). Lastly, even though feature engineering is typically conducted before selection, there’s value in exploring feature engineering for many reasons after the dust has settled and features have been selected.
+These are the main topics we are going to cover in this chapter:
+* Understanding the effect of irrelevant features
+* Reviewing filter-based feature selection methods
+* Exploring embedded feature selection methods
+* Discovering wrapper, hybrid, and advanced feature selection methods
+* Considering feature engineering
 
 ### Chapter 11, Bias Mitigation and Causal Inference Methods
-
-
-**Key Insights**:
+In Chapter 6, Anchors and Counterfactual Explanations, we examined fairness and its connection to decision-making but limited to post hoc model interpretation methods. In Chapter 10, Feature Selection and Engineering for Interpretability, we broached the topic of cost-sensitivity, which often relates to balance or fairness. In this chapter, we will engage with methods that will balance data and tune models for fairness.
+With a credit card default dataset, we will learn how to leverage target visualizers such as class balance to detect undesired bias, then how to reduce it via preprocessing methods such as reweighting and disparate impact remover for in-processing and equalized odds for post-processing. Extending from the topics of Chapter 6, Anchors and Counterfactual Explanations, and Chapter 10, Feature Selection and Engineering for Interpretability, we will also study how policy decisions can have unexpected, counterintuitive, or detrimental effects. A decision, in the context of hypothesis testing, is called a treatment. For many decision-making scenarios, it is critical to estimate their effect and make sure this estimate is reliable.
+Therefore, we will hypothesize treatments for reducing credit card default for the most vulnerable populations and leverage causal modeling to determine its Average Treatment Effects (ATE) and Conditional Average Treatment Effects (CATE). Finally, we will test causal assumptions and the robustness of estimates using a variety of methods.
+These are the main topics we are going to cover:
+* Detecting bias
+* Mitigating bias
+* Creating a causal model
+* Understanding heterogeneous treatment effects
+* Testing estimate robustness
 
 ### Chapter 12, Monotonic Constraints and Model Tuning for Interpretability
-
-
-**Key Insights**:
+Most model classes have hyperparameters that can be tuned for faster execution speed, increasing predictive performance, and reducing overfitting. One way of reducing overfitting is by introducing regularization into the model training. In Chapter 3, Interpretation Challenges, we called regularization a remedial interpretability property, which reduces complexity with a penalty or limitation that forces the model to learn sparser representations of the inputs. Regularized models generalize better, which is why it is highly recommended to tune models with regularization to avoid overfitting to the training data. As a side effect, regularized models tend to have fewer features and interactions, making the model easier to interpret—less noise means a clearer signal!
+And even though there are many hyperparameters, we will only focus on those that improve interpretability by controlling overfitting. Also, to a certain extent, we will revisit bias mitigation through the class imbalance-related hyperparameters explored in previous chapters.
+Chapter 2, Key Concepts of Interpretability, explained three model properties that impact interpretability: non-linearity, interactivity, and non-monotonicity. Left to its own devices, a model can learn some spurious and counterintuitive non-linearities and interactivities. As discussed in Chapter 10, Feature Selection and Engineering for Interpretability, guardrails can be placed to prevent this through careful feature engineering. However, what can we do to place guardrails for monotonicity? In this chapter, we will learn how to do just this with monotonic constraints. And just as monotonic constraints can be the model counterpart to feature engineering, regularization can be the model counterpart to the feature selection methods we covered in Chapter 10!
+These are the main topics we are going to cover in this chapter:
+* Placing guardrails with feature engineering
+* Tuning models for interpretability
+* Implementing model constraints
 
 ### Chapter 13, Adversarial Robustness
-
-
-**Key Insights**:
+Machine learning interpretation has many concerns, ranging from knowledge discovery to high-stakes ones with tangible ethical implications, like the fairness issues examined in the last two chapters. In this chapter, we will direct our attention to concerns involving reliability, safety, and security.
+As we realized using the contrastive explanation method in Chapter 7, Visualizing Convolutional Neural Networks, we can easily trick an image classifier into making embarrassingly false predictions. This ability can have serious ramifications. For instance, a perpetrator can place a black sticker on a yield sign, and while most drivers would still recognize this as a yield sign, a self-driving car may no longer recognize it and, as a result, crash. A bank robber could wear a cooling suit designed to trick the bank vault’s thermal imaging system, and while any human would notice it, the imaging system would fail to do so.
+The risk is not limited to sophisticated image classifiers. Other models can be tricked! The counterfactual examples produced in Chapter 6, Anchors and Counterfactual Explanations, are like adversarial examples except with the goal of deception. An attacker could leverage any misclassification example, straddling the decision boundary adversarially. For instance, a spammer could realize that adjusting some email attributes increases the likelihood of circumventing spam filters.
+Complex models are more vulnerable to adversarial attacks. So why would we trust them?! We can certainly make them more foolproof, and that’s what adversarial robustness entails. An adversary can purposely thwart a model in many ways, but we will focus on evasion attacks and briefly explain other forms of attacks. Then we will explain two defense methods: spatial smoothing preprocessing and adversarial training. Lastly, we will demonstrate one robustness evaluation method.
+These are the main topics we will cover:
+* Learning about evasion attacks
+* Defending against targeted attacks with preprocessing
+* Shielding against any evasion attack through adversarial training of a robust classifier
 
 ### Chapter 14, What’s Next for Machine Learning Interpretability?
-
-
-**Key Insights**:
+Over the last thirteen chapters, we have explored the field of Machine Learning (ML) interpretability. As stated in the preface, it’s a broad area of research, most of which hasn’t even left the lab and become widely used yet, and this book has no intention of covering absolutely all of it. Instead, the objective is to present various interpretability tools in sufficient depth to be useful as a starting point for beginners and even complement the knowledge of more advanced readers. This chapter will summarize what we’ve learned in the context of the ecosystem of ML interpretability methods, and then speculate on what’s to come next!
+These are the main topics we are going to cover in this chapter:
+* Understanding the current landscape of ML interpretability
+* Speculating on the future of ML interpretability
 
 
 
