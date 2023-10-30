@@ -214,15 +214,16 @@ For example, if you apply for a mortgage, your approval depended on an acceptabl
 These days, financial institutions train models on thousands of mortgage outcomes, with dozens of variables. These models can be used to determine the likelihood that you would default on a mortgage with a presumed high accuracy. If there is a loan officer to stamp the approval or denial, it’s no longer merely a guideline but an algorithmic decision. How could it be wrong? How could it be right? How and why was the decision made?
 Hold on to that thought because, throughout this book, we will be learning the answers to these questions and many more!
 Machine learning model interpretation enables you to understand the logic behind a decision and trace back the detailed steps of the process behind the logic. This chapter introduces machine learning interpretation and related concepts, such as interpretability, explainability, black-box models, and transparency. This chapter provides definitions for these terms to avoid ambiguity and underpins the value of machine learning interpretability. These are the main topics we are going to cover:
-• What is machine learning interpretation?
-• Understanding the difference between interpretation and explainability
-• A business case for interpretability
+* What is machine learning interpretation?
+* Understanding the difference between interpretation and explainability
+* A business case for interpretability
 
 
 ### Chapter 02, Key Concepts of Interpretability
-
-
-**Key Insights**:
+This book covers many model interpretation methods. Some produce metrics, others create visuals, and some do both; some depict models broadly and others granularly. In this chapter, we will learn about two methods, feature importance and decision regions, as well as the taxonomies used to describe these methods. We will also detail what elements hinder machine learning interpretability as a primer to what lies ahead.
+The following are the main topics we are going to cover in this chapter:
+* Learning about interpretation method types and scopes
+* Appreciating what hinders machine learning interpretability
 
 ### Chapter 03, Interpretation Challenges
 
