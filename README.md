@@ -6,6 +6,19 @@ This is the code repository for [Interpretable Machine Learning with Python, 2E]
 
 **Build explainable, fair, and robust high-performance models with hands-on, real-world examples**
 
+The author of this book is -[Serg Masís](https://www.linkedin.com/in/smasis/)
+
+## About the book(long descriptio in EPIC)
+
+Interpretable Machine Learning with Python, Second Edition, brings to light the key concepts of interpreting machine learning models by analyzing real-world data, providing you with a wide range of skills and tools to decipher the results of even the most complex models.
+Build your interpretability toolkit with several use cases, from flight delay prediction to waste classification to COMPAS risk assessment scores. This book is full of useful techniques, introducing them to the right use case. Learn traditional methods, such as feature importance and partial dependence plots to integrated gradients for NLP interpretations and gradient-based attribution methods, such as saliency maps.
+In addition to the step-by-step code, you’ll get hands-on with reducing complexity, mitigating bias, placing guardrails, and enhancing reliability.
+By the end of the book, you’ll be confident in tackling interpretability challenges with black-box models using tabular, language, image, and time series data.
+
+## What's New:
+This second edition introduces analysis of NLP transformers, leveraging BertViz to visualize transformer models, layers, and attention heads, and integrated gradients and the Visualization Data Record to see what tokens are responsible for a predicted label. You’ll also get a crash course on the Learning Interpretability Tool (LIT) and go through new and updated uses case.
+
+
 ## What is this book about?
 Do you want to gain a deeper understanding of your models and better mitigate poor prediction risks associated with machine learning interpretation? If so, then Interpretable Machine Learning with Python, Second Edition is the book for you.
 
@@ -165,6 +178,133 @@ pip freeze > installed.txt
 - If you have an issue with the `machine-learning-datasets` library (also known as `mldatasets`), please report the issue in the [corresponding repository](https://github.com/smasis001/Machine-Learning-Datasets).
 
 
-## Get to Know the Authors
-**Serg Masís**
-For the last two decades, Serg Masís has been at the confluence of the internet, application development, and analytics. Currently, he's a Lead Data Scientist at Syngenta, a leading agribusiness company with a mission to improve global food security. Before that role, he co-founded a search engine startup incubated by Harvard Innovation Labs, combining the power of cloud computing and machine learning with principles in decision-making science to expose users to new places and events efficiently. Whether it pertains to leisure activities, plant diseases, or customer lifetime value, Serg is passionate about providing the often-missing link between data and decision-making — and machine learning interpretation helps bridge this gap more robustly
+## Outline and Chapter Summary
+The title of this book suggests its central themes: interpretation, machine learning, and Python, with the first theme being the most crucial.
+So, why is interpretation so important?
+Interpretable machine learning encompasses a growing array of techniques that help us glean insights from models, aiming to ensure they are safe, fair, and reliable – a goal I believe we all share for our models.
+With the rise of AI superseding traditional software and even human tasks, machine learning models are viewed as a more advanced form of software. While they operate on binary data, they aren’t typical software; their logic isn’t explicitly coded by developers but emerges from data patterns. This is where interpretation steps in, helping us understand these models, pinpoint their errors, and rectify them before any potential mishaps. Thus, interpretation is essential in fostering trust and ethical considerations in these models. And it’s worth noting that in the not-so-distant future, training models might move away from coding to more intuitive drag-and-drop interfaces. In this context, understanding machine learning models becomes an invaluable skill.
+Currently, there’s still a significant amount of coding involved in data preprocessing, exploration, model training, and deployment. And while this book is rich with Python examples, it’s not merely a coding guide removed from practical applications or the bigger picture. The book’s essence is to prioritize the why before the how when it comes to interpretable machine learning, as interpretation revolves around the question of why.
+Therefore, most chapters of this book kickoff by outlining a mission (the why) and then delving into the methodology (the how). The aim is to achieve the mission using the techniques discussed in the chapter, with an emphasis on understanding the results. The chapters wrap up by pondering on the practical insights gained from the exercises.
+The structure of this book is progressive, starting from the basics and moving to more intricate topics. The tools utilized in this book are open source and are products of leading research institutions like Microsoft, Google, and IBM. Even though interpretability is a vast research field with many aspects still in the developmental phase, this book doesn’t aim to cover it all. Its primary goal is to delve deeply into a selection of interpretability tools, making it beneficial for those working in the machine learning domain.
+The book’s initial section introduces interpretability, emphasizing its significance in the business landscape and discussing its core components and challenges. The subsequent section provides a detailed overview of various interpretation techniques and their applications, whether it’s for classification, regression, tabular data, time series, images, or text. In the final section, readers will engage in practical exercises on model tuning and data training for interpretability, focusing on simplifying models, addressing biases, setting constraints, and ensuring dependability.
+By the book’s conclusion, readers will be adept at using interpretability techniques to gain deeper insights into machine learning models.
+
+
+1. Chapter 1, [Interpretation, Interpretability, and Explainability; and Why Does It All Matter?](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/01)
+2. Chapter 2, [Key Concepts of Interpretability](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/02)
+3. Chapter 3, [Interpretation Challenges](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/03)
+4. Chapter 4, [Global Model-Agnostic Interpretation Methods](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/04)
+5. Chapter 5, [Local Model-Agnostic Interpretation Methods](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/05)
+6. Chapter 6, [Anchors and Counterfactual Explanations](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/06)
+7. Chapter 7, [Visualizing Convolutional Neural Networks](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/07)
+8. Chapter 8, [Interpreting NLP Transformers](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/08)
+9. Chapter 9, [Interpretation Methods for Multivariate Forecasting and Sensitivity Analysis](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/09)
+10. Chapter 10, [Feature Selection and Engineering for Interpretability](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/10)
+11. Chapter 11, [Bias Mitigation and Causal Inference Methods](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/11)
+12. Chapter 12, [Monotonic Constraints and Model Tuning for Interpretability](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/12)
+13. Chapter 13, [Adversarial Robustness](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/tree/main/13)
+14. Chapter 14, What’s Next for Machine Learning Interpretability?
+
+### Chapter 01, Interpretation, Interpretability, and Explainability; and Why Does It All Matter?
+We live in a world whose rules and procedures are ever-increasingly governed by data and algorithms.
+For instance, there are rules about who gets approved for credit or released on bail, and which social media posts might get censored. There are also procedures to determine which marketing tactics are most effective and which chest x-ray features might diagnose a positive case of pneumonia.
+We expect this because it is nothing new!
+But not so long ago, rules and procedures such as these used to be hardcoded into software, textbooks, and paper forms, and humans were the ultimate decision-makers. Often, it was entirely up to human discretion. Decisions depended on human discretion because rules and procedures were rigid and, therefore, not always applicable. There were always exceptions, so a human was needed to make them.
+For example, if you apply for a mortgage, your approval depended on an acceptable and reasonably lengthy credit history. This data, in turn, would produce a credit score using a scoring algorithm. Then, the bank had rules that determined what score was good enough for the mortgage you wanted. Your loan officer could follow it or not.
+These days, financial institutions train models on thousands of mortgage outcomes, with dozens of variables. These models can be used to determine the likelihood that you would default on a mortgage with a presumed high accuracy. If there is a loan officer to stamp the approval or denial, it’s no longer merely a guideline but an algorithmic decision. How could it be wrong? How could it be right? How and why was the decision made?
+Hold on to that thought because, throughout this book, we will be learning the answers to these questions and many more!
+Machine learning model interpretation enables you to understand the logic behind a decision and trace back the detailed steps of the process behind the logic. This chapter introduces machine learning interpretation and related concepts, such as interpretability, explainability, black-box models, and transparency. This chapter provides definitions for these terms to avoid ambiguity and underpins the value of machine learning interpretability. These are the main topics we are going to cover:
+• What is machine learning interpretation?
+• Understanding the difference between interpretation and explainability
+• A business case for interpretability
+
+
+### Chapter 02, Key Concepts of Interpretability
+
+
+**Key Insights**:
+
+### Chapter 03, Interpretation Challenges
+
+
+**Key Insights**:
+
+### Chapter 04, Global Model-Agnostic Interpretation Methods
+
+
+**Key Insights**:
+
+### Chapter 05, Local Model-Agnostic Interpretation Methods
+
+
+**Key Insights**:
+
+### Chapter 06, Anchors and Counterfactual Explanations
+
+
+**Key Insights**:
+
+### Chapter 07, Visualizing Convolutional Neural Networks
+
+
+**Key Insights**:
+
+
+### Chapter 08, Interpreting NLP Transformers
+
+
+**Key Insights**:
+
+### Chapter 09, Interpretation Methods for Multivariate Forecasting and Sensitivity Analysis
+
+
+**Key Insights**:
+
+### Chapter 10, Feature Selection and Engineering for Interpretability
+
+
+**Key Insights**:
+
+### Chapter 11, Bias Mitigation and Causal Inference Methods
+
+
+**Key Insights**:
+
+### Chapter 12, Monotonic Constraints and Model Tuning for Interpretability
+
+
+**Key Insights**:
+
+### Chapter 13, Adversarial Robustness
+
+
+**Key Insights**:
+
+### Chapter 14, What’s Next for Machine Learning Interpretability?
+
+
+**Key Insights**:
+
+
+
+## Know more on the Discord server <img alt="Coding" height="25" width="32"  src="https://cliply.co/wp-content/uploads/2021/08/372108630_DISCORD_LOGO_400.gif">
+You can get more engaged on the discord server for more latest updates and discussions in the community at [Discord](https://packt.link/inml)
+
+## Download a free PDF <img alt="Coding" height="25" width="40" src="https://emergency.com.au/wp-content/uploads/2021/03/free.gif">
+
+_If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost. Simply click on the link to claim your free PDF._
+[Free-Ebook](https://packt.link/free-ebook/9781803235424) <img alt="Coding" height="15" width="35"  src="https://media.tenor.com/ex_HDD_k5P8AAAAi/habbo-habbohotel.gif">
+
+We also provide a PDF file that has color images of the screenshots/diagrams used in this book at [GraphicBundle](https://packt.link/gbp/9781803235424) <img alt="Coding" height="15" width="35"  src="https://media.tenor.com/ex_HDD_k5P8AAAAi/habbo-habbohotel.gif">
+
+
+
+## Get to Know the Author
+For the last two decades, _Serg Masís_ has been at the confluence of the internet, application development, and analytics. Currently, he's a Lead Data Scientist at Syngenta, a leading agribusiness company with a mission to improve global food security. Before that role, he co-founded a search engine startup incubated by Harvard Innovation Labs, combining the power of cloud computing and machine learning with principles in decision-making science to expose users to new places and events efficiently. Whether it pertains to leisure activities, plant diseases, or customer lifetime value, Serg is passionate about providing the often-missing link between data and decision-making — and machine learning interpretation helps bridge this gap more robustly
+
+
+
+## Other Related Books
+- [Causal Inference and Discovery in Python](https://www.packtpub.com/product/causal-inference-and-discovery-in-python/9781804612989)
+- [Transformers for Natural Language Processing – Second Edition](https://www.packtpub.com/product/transformers-for-natural-language-processing-second-edition-second-edition/9781803247335)
+
