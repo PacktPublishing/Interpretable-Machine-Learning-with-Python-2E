@@ -8,7 +8,7 @@ This is the code repository for [Interpretable Machine Learning with Python, 2E]
 
 The author of this book is -[Serg Masís](https://www.linkedin.com/in/smasis/)
 
-## About the book(long descriptio in EPIC)
+## About the book
 
 Interpretable Machine Learning with Python, Second Edition, brings to light the key concepts of interpreting machine learning models by analyzing real-world data, providing you with a wide range of skills and tools to decipher the results of even the most complex models.
 Build your interpretability toolkit with several use cases, from flight delay prediction to waste classification to COMPAS risk assessment scores. This book is full of useful techniques, introducing them to the right use case. Learn traditional methods, such as feature importance and partial dependence plots to integrated gradients for NLP interpretations and gradient-based attribution methods, such as saliency maps.
