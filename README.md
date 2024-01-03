@@ -346,7 +346,7 @@ For the last two decades, _Serg Masís_ has been at the confluence of the intern
 
 ## Errata
 *  [Page 4 - Understanding a simple weight prediction model](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/blob/main/README.md#page-4---understanding-a-simple-weight-prediction-model)
-*  [Page 27 - Interpretation method types and scopes] ()
+*  [Page 27 - Interpretation method types and scopes](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/blob/main/README.md#page-27---interpretation-method-types-and-scopes)
 
 
 ## Page 4 - Understanding a simple weight prediction model
