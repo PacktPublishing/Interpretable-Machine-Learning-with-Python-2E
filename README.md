@@ -350,7 +350,7 @@ For the last two decades, _Serg Masís_ has been at the confluence of the intern
 
 
 ## Page 4 - Understanding a simple weight prediction model
-In Page 4 after the output line, I have written "on average, for every additional pound, there are 3.4 inches of height" but it should have been "on average, for every additional inch in height there are 3.4 additional pounds in weight"
+In Page 4 after the output, I have written "This tells us that, on average, for every additional pound, there are 3.4 inches of height" but it should have been "This tells us that, on average, for every additional inch of height, there are 3.4 additional pounds of weight"
 
 ## Page 27 - Interpretation method types and scopes
 In Page 27 1st Pagragraph, I have written "odds of a rival team winning the championship today, the positive case would be that they own" but I should have written **won** and not **own**
