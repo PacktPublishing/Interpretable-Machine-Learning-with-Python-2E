@@ -24,7 +24,7 @@ By the end of the book, you’ll be confident in tackling interpretability chall
 
 
 
-![image](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/assets/139948741/0f95ccaf-6aa7-4c56-b585-c066a6b3a8f7)
+![image](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/assets/139948741/0f95ccaf-6aa7-4c56-b585-c066a6b3a8f7){:width="300px"}
 
 
 
