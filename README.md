@@ -16,7 +16,14 @@ In addition to the step-by-step code, you’ll get hands-on with reducing comple
 By the end of the book, you’ll be confident in tackling interpretability challenges with black-box models using tabular, language, image, and time series data.
 
 ![image](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/assets/139948741/9d46f412-1b33-4039-8919-5e1a85711cc1)
+
+
+
 ![image](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/assets/139948741/3dce57bb-0fd3-4cf9-a924-1e14c2625609)
+
+
+
+
 ![image](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/assets/139948741/0f95ccaf-6aa7-4c56-b585-c066a6b3a8f7)
 
 
