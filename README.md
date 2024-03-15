@@ -15,6 +15,8 @@ Build your interpretability toolkit with several use cases, from flight delay pr
 In addition to the step-by-step code, you’ll get hands-on with reducing complexity, mitigating bias, placing guardrails, and enhancing reliability.
 By the end of the book, you’ll be confident in tackling interpretability challenges with black-box models using tabular, language, image, and time series data.
 
+![alt text](https://packtservices-my.sharepoint.com/personal/bhavesha_packt_com/_layouts/15/onedrive.aspx?ct=1710507322374&or=Teams%2DHL&ga=1&id=%2Fpersonal%2Fbhavesha%5Fpackt%5Fcom%2FDocuments%2FBooks%2F2022%2FInterpretable%20ML%20with%20Python%202E%2FA%2B%20Page%2FImages%2FB18406%201%2DModule%206%20970x300%2Epng&parent=%2Fpersonal%2Fbhavesha%5Fpackt%5Fcom%2FDocuments%2FBooks%2F2022%2FInterpretable%20ML%20with%20Python%202E%2FA%2B%20Page%2FImages)
+
 ## What's New:
 This second edition introduces analysis of NLP transformers, leveraging BertViz to visualize transformer models, layers, and attention heads, and integrated gradients and the Visualization Data Record to see what tokens are responsible for a predicted label. You’ll also get a crash course on the Learning Interpretability Tool (LIT) and go through new and updated uses case.
 
