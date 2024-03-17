@@ -15,7 +15,9 @@ Build your interpretability toolkit with several use cases, from flight delay pr
 In addition to the step-by-step code, you’ll get hands-on with reducing complexity, mitigating bias, placing guardrails, and enhancing reliability.
 By the end of the book, you’ll be confident in tackling interpretability challenges with black-box models using tabular, language, image, and time series data.
 
-![image](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/assets/139948741/9d46f412-1b33-4039-8919-5e1a85711cc1)
+
+
+![image](https://github.com/PacktPublishing/Interpretable-Machine-Learning-with-Python-2E/assets/139948741/dc917063-69b9-47cf-83a6-cd5c774d62ea)
 
 
 
