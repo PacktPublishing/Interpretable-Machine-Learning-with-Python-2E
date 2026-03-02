@@ -1,7 +1,3 @@
-<p align='center'><a href='https://www.eventbrite.com/e/machine-learning-and-generative-ai-system-design-workshop-tickets-1975103644168?aff=Github'><img src='https://static.packt-cdn.com/assets/images/packt+events/Sairam_ML_GenAI_Github_banner.png'/></a></p>
-
-<p align='center'><a href='https://www.eventbrite.com/e/algorithmic-trading-with-python-cohort-2-tickets-1833367644979?aff=oddtdtcreator'><img src='https://static.packt-cdn.com/assets/images/packt+events/Python_for_Algorithmic Trading_v1.png'/></a></p>
-
 # Interpretable Machine Learning with Python
 
 <a href="https://www.packtpub.com/product/interpretable-machine-learning-with-python-2e-second-edition/9781803235424"><img src="https://content.packt.com/B18406/cover_image_small.jpg" alt="Interpretable Machine Learning with Pythone" height="256px" align="right"></a>
